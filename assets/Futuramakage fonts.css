@@ -1,0 +1,23 @@
+@import url(https://fonts.googleapis.com/css?family=Alfa+Slab+One);
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+.font-mono {
+  font-family: monospace;
+}
+
+h1{
+  font-family: 'Alfa Slab One';
+  font-weight: normal;
+}
+
+h2, h3, h4, body{
+  font-family: 'Montserrat';
+  font-weight: normal;
+}
+
+.remark-code, .remark-inline-code {
+  font-family: 'Josefin Sans', 'Lucida Console', Monaco, monospace;
+  color: var(--code-inline-color);
+  background: rgba(052, 152, 204, 0.4);
+}
