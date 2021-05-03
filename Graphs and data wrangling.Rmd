@@ -63,6 +63,11 @@ library(systemfonts)
 library(gtools)
 library(margins)
 library(interactions)
+#install.packages("harrypotter")
+library(harrypotter)
+#devtools::install_github("johannesbjork/LaCroixColoR")
+library(LaCroixColoR)
+
 
 ```
 
@@ -196,6 +201,7 @@ m21 <- m21 %>% mutate(pidstf=frcode(pid8==1 | pid8==7 ~ "Strong\nPartisan",
 ```
 
 ```{r}
+#QAnon variable
 m21 <- m21 %>% mutate(q6r=6-q6)
 m21 <- m21 %>% mutate(q6rf=frcode(q6r==1 ~ "Strongly\nDisagree",
                                   q6r==2 ~ "Somewhat\nDisagree",
@@ -235,6 +241,63 @@ m21 <- m21 %>% mutate(q13_1=car::recode(q13_1, "NA=0"),
 
 ```
 
+```{r}
+m21_major <- m21 %>% gather(key="t_major", value="p_major", 
+                                q63_1, q63_2, q63_3, q63_4, q63_5, q63_6, na.rm=TRUE) %>% 
+  mutate(t_major=frcode(t_major=="q63_1" ~ "Social Sciences",
+                        t_major=="q63_2" ~ "Sciences",
+                        t_major=="q63_3" ~ "Humanities",
+                        t_major=="q63_4" ~ "Arts",
+                        t_major=="q63_5" ~ "Interdisciplinary \nPrograms",
+                        t_major=="q63_6" ~ "Undecided")) 
+
+#Campus involvement
+m21 <- m21 %>% mutate(q43_1=car::recode(q43_1, "NA=0"),
+                      q43_2=car::recode(q43_2, "NA=0"),
+                      q43_3=car::recode(q43_3, "NA=0"),
+                      q43_4=car::recode(q43_4, "NA=0"),
+                      q43_5=car::recode(q43_5, "NA=0"),
+                      q43_6=car::recode(q43_6, "NA=0"),
+                      q43_7=car::recode(q43_7, "NA=0"),
+                      q43_8=car::recode(q43_8, "NA=0"),
+                      q43_9=car::recode(q43_9, "NA=0"),
+                      q43_10=car::recode(q43_10, "NA=0"),
+                      q43_11=car::recode(q43_11, "NA=0"))
+
+m21_inv <- m21 %>% gather(key="t_inv", value="p_inv", 
+                                q43_1, q43_2, q43_3, q43_4, q43_5, q43_6,
+                                q43_7, q43_8, q43_9, q43_10, q43_11,  na.rm=TRUE) %>% 
+  mutate(t_inv=frcode(t_inv=="q43_1" ~ "Varsity Sports",
+                      t_inv=="q43_2" ~ "Club Sports",
+                      t_inv=="q43_3" ~ "DCGA",
+                      t_inv=="q43_4" ~ "Employment",
+                      t_inv=="q43_5" ~ "Performing/Art Groups",
+                      t_inv=="q43_6" ~ "Greek Life",
+                      t_inv=="q43_7" ~ "Community Service",
+                      t_inv=="q43_8" ~ "Social Justice/ Advocacy",
+                      t_inv=="q43_9" ~ "Religious/Spiritual Life",
+                      t_inv=="q43_10" ~ "Cross Cultural Engagement",
+                      t_inv=="q43_11" ~ "Other"))
+
+m21 <- m21 %>% rowwise() %>% mutate(invtot=sum(q43_1, 
+                                               q43_2, 
+                                               q43_3,
+                                               q43_4, 
+                                               q43_5, 
+                                               q43_6, 
+                                               q43_7, 
+                                               q43_8,
+                                               q43_9,
+                                               q43_10,
+                                               q43_11, na.rm=TRUE)) %>% ungroup()
+
+m21 <- m21 %>% mutate(invtotf=as.factor(invtot))
+
+
+
+```
+
+
 
 ```{r}
 #Overall stress this semester
@@ -243,7 +306,10 @@ m21 %>% mean_ci(q20_1, ci=0.84)
 m21 %>% mean_ci(q20_2, ci=0.84)
 
 #Academics
-m21 %>% mean_ci(q21_1)
+m21_major %>% 
+  filter(p_major==1) %>% 
+  group_by(t_major) %>% 
+  mean_ci(q21_1)
 #Personal finances
 m21 %>% mean_ci(q21_2)
 #Family
@@ -262,6 +328,195 @@ m21 %>% mean_ci(q21_8)
 m21 %>% mean_ci(q21_9)
 
 ```
+
+```{r}
+#Academic Stress
+m21_major %>% 
+  group_by(t_major) %>% filter(p_major==1) %>% 
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=reorder(t_major,mean) , y=mean, fill= t_major)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="Arts and Undecided Students Have the Least Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+m21_inv %>% 
+  group_by(t_inv) %>% filter(p_inv==1) %>% 
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=reorder(t_inv,mean) , y=mean, fill= t_inv)) + 
+  coord_flip()+
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="Arts and Undecided Students Have the Least Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+m21 %>% 
+  group_by(invtotf) %>% filter(invtotf!="NA") %>% 
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=invtotf , y=mean, fill= invtotf)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Different Organization Types Involved In", y=NULL, 
+       title="Involvement Level Does Not Affect Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+m21 %>% 
+  group_by(pid8f) %>% filter(pid8f!="NA") %>% 
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=pid8f , y=mean, fill= pid8f)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="No Connection Between Partisanship and Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+    scale_fill_futurama()
+
+
+m21 %>% 
+  group_by(race) %>% filter(race!="NA") %>% 
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=race , y=mean, fill= race)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="No Connection Between Race and Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+
+
+```
+
+```{r}
+#Personal finances Stress
+m21_major %>% 
+  group_by(t_major) %>% filter(p_major==1) %>% 
+  mean_ci(q21_2, ci=.76) %>% 
+  ggplot(., aes(x=reorder(t_major,mean) , y=mean, fill= t_major)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="Majors and Personal Finances",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+m21 %>% 
+  group_by(pid8f) %>% filter(pid8f!="NA") %>% 
+  mean_ci(q21_2, ci=.76) %>% 
+  ggplot(., aes(x=pid8f , y=mean, fill= pid8f)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="Partisanship and Personal Finances",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+m21 %>% 
+  group_by(race) %>% filter(race!="NA") %>% 
+  mean_ci(q21_2, ci=.76) %>% 
+  ggplot(., aes(x=race , y=mean, fill= race)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x=NULL, y=NULL, 
+       title="Race and Personal Finance Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+
+
+```
+
+```
+
 
 
 
