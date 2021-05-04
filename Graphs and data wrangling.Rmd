@@ -293,10 +293,80 @@ m21 <- m21 %>% rowwise() %>% mutate(invtot=sum(q43_1,
 
 m21 <- m21 %>% mutate(invtotf=as.factor(invtot))
 
+m21 <- m21 %>% mutate(study=as.factor(q16_3))
 
 
 ```
 
+```{r}
+#Sleep
+m21 %>% ct(q16_5)
+m21 %>% mean_ci(q16_3)
+
+m21_major %>% 
+  group_by(t_major) %>% filter(p_major==1) %>% 
+  mean_ci(q16_3, ci=.76) %>% 
+  ggplot(., aes(x=reorder(t_major,mean) , y=mean, fill= t_major)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  labs(x=NULL, y=NULL, 
+       title="Arts and Undecided Students Have the Least Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+m21 %>% 
+  group_by(study) %>% filter(q16_3!="NA") %>% 
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=study , y=mean, fill= study)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Hours Doing Homework", y=NULL, 
+       title="Arts and Undecided Students Have the Least Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+m21 %>% 
+  group_by(sleep) %>% filter(q16_5!="NA") %>% filter(q16_5>4) %>%  
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=sleep , y=mean, fill= sleep)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Hours Doing Sleeping", y=NULL, 
+       title="Arts and Undecided Students Have the Least Academic Stress",
+       caption="Source: October 2020 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+```
 
 
 ```{r}
@@ -515,7 +585,7 @@ m21 %>%
 
 ```
 
-```
+
 
 
 
