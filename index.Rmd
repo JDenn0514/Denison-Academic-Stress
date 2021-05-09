@@ -19,42 +19,71 @@ output:
 
 ---
 
-class: split-50 with-thick-border
+class: split-60 with-thick-border
 
 .column.bg-main1[.content.vmiddle[
+##From pulling an all nighter my freshman year (DO NOT RECOMMEND), to turning papers in with less than a minutes to spare (something I am quite proud of actually), to, ultimately, writing a 51 page Senior Thesis, I have had my fair share stress-related to academics.
+
+]
+]
+
+.column.bg-main5[.content.vmiddle[
 .center[
-##Recently, Siobhan Mitchell wrote another article about stress in which she found two things that caught me attention
+.fig[![](images/kid-stressed.jpg)]
 ]
 ]]
 
 
-.column.bg-main5[.split-50.border-white[
-.row.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
+---
+
+class: split-40
+
+.row.bg-main5[.content.vmiddle[
+##With finals coming up soon, many of my friends have talked about how swamped they are with homework/studying and stressed. 
+]]
+
+.row.bg-main1[.content.vmiddle[
+#This got me wondering, how stressed are students about academics and how does that compare to other possible stressors
+]]
+
+---
+
+class: split-50 
+
+.row.bg-main1[.content.vmiddle[
+.center[
+##Recently, Siobhan Mitchell wrote another article about stress in which she found two things that caught my attention
+]
+]]
+
+
+.row.bg-main5[.split-50.border-white[
+.column.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
 <br>
 
 ]]
-.row.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
+.column.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
 
 ]]
 ]]
 
 ---
 
-class: split-50 with-thick-border
+class: split-50 
 
-.column.bg-main1[.content.vmiddle[
+.row.bg-main1[.content.vmiddle[
 .center[
-##Recently, Siobhan Mitchell wrote another article about stress in which she found two things that caught me attention
+##Recently, Siobhan Mitchell wrote another article about stress in which she found two things that caught my attention
 ]
 ]]
 
 
-.column.bg-main5[.split-50.border-white[
-.row.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
+.row.bg-main5[.split-50.border-white[
+.column.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
 <br>
 ##1. Students are very stressed
 ]]
-.row.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
+.column.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
 
 ]]
 ]]
@@ -62,24 +91,48 @@ class: split-50 with-thick-border
 
 ---
 
-class: split-50 with-thick-border
+class: split-50 
 
-.column.bg-main1[.content.vmiddle[
+.row.bg-main1[.content.vmiddle[
 .center[
-##Recently, Siobhan Mitchell wrote another article about stress in which she found two things that caught me attention
+##Recently, Siobhan Mitchell wrote another article about stress in which she found two things that caught my attention
 ]
 ]]
 
 
-.column.bg-main5[.split-50.border-white[
-.row[.sliderbox.bg-main5.center.vmiddle[
+.row.bg-main5[.split-50.border-white[
+.column[.sliderbox.bg-main5.center.vmiddle[
 <br>
 ##1. Students are very stressed
 ]]
-.row.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
-##2.Academics are the main cause of stress
+.column.slide-in-right[.sliderbox.bg-main5.center.vmiddle[
+##2. Academics are the main cause of stress
 ]]
 ]]
+
+---
+
+class: shuriken-200 
+
+.blade1.bg-main8.content.center[
+#Hours of sleep per day
+]]
+.blade2.bg-main9[.content.vertical-rl.center[
+#Hours of homework/studying per day
+]]
+.blade3.bg-deep-main7[.content.center[
+# 
+]]
+.blade4.bg-main2[.content.sideways-rl.center.vmiddle[
+# I lie.
+]]
+.hole.bg-main1[.content.center.vmiddle[
+#Factors I will investigate
+]]
+
+
+
+
 
 
 
