@@ -76,7 +76,7 @@ library(paletti)
 
 
 ```{r, include=FALSE}
-#Import Data, if you don't have access and want it, please email me at dennen_j1@denison.edu
+#Import Data, if you don't have access and want it, please email me at jdenn0514@gmail.com
 library(readr)
 m21 <- read_csv("March_2021_deidentified_565.csv")
 
@@ -140,7 +140,6 @@ m21 <- m21 %>% mutate(race=case_when(black==1 ~ "Black",
                                      hispanic==1 ~ "Hispanic",
                                      other==1 & (black!=1 & hispanic!=1 & asian!=1)~ "Other",
                                      white==1 & (black!=1 & hispanic!=1 & asian!=1 & other!=1) ~ "White"))
-m21 %>% ct(race)
 
 
 ```
@@ -364,12 +363,12 @@ m21<- m21 %>% mutate(drink=as.factor(q23))
 ```
 
 ```{r making color palette}
-gbh <- c("#ABDDDE", "#FD6467", "#5B1A18", "#D67236","#E6A0C4", "#C6CDF7", "#D8A499", "#7294D4", "#46ACC8")
+gbh <- c("#E6A0C4", "#C6CDF7", "#D8A499", "#7294D4", "#46ACC8","#ABDDDE", "#F1BB7B", "#FD6467", "#5B1A18", "#D67236")
 viz_palette(gbh)
 gbh_fill  <- get_scale_fill(get_pal(gbh))
 gbh_color <- get_scale_color(get_pal(gbh))
 
-dj <- c( "#00A08A", "#F2AD00", "#F98400", "#5BBCD6", "#ECCBAE", "#046C9A", "#D69C4E", "#ABDDDE", "#000000")
+dj <- c("#FF0000", "#00A08A", "#F2AD00", "#F98400", "#5BBCD6", "#ECCBAE", "#046C9A", "#D69C4E", "#ABDDDE", "#000000")
 viz_palette(dj)
 dj_fill  <- get_scale_fill(get_pal(dj))
 dj_color <- get_scale_color(get_pal(dj))
@@ -381,7 +380,7 @@ m21_str %>%
   group_by(t_str) %>% 
   mean_ci(p_str, ci=.76) %>% 
   ggplot(., aes(x=reorder(t_str,mean), y=mean, fill= t_str)) + 
-  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_col(color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   coord_flip() +
   theme_hc() +
@@ -392,7 +391,7 @@ m21_str %>%
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
   geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
-  labs(y="Number of Hours Doing Homework", x=NULL, 
+  labs(y="Stress Level\n(Higher Number Means More Stressful)", x=NULL, 
        title="Even in the Middle of a Pandemic,\nAcademics Are by Far the Most Stressful Aspect of Students' Lives",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
   gbh_fill()
