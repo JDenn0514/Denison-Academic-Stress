@@ -18,6 +18,11 @@
   animation: slideInFromBottom 1s ease-in ; 
 }
 
+.slide-in-top {
+  -webkit-animation: slideInFromTop 1s ease-in; 
+  animation: slideInFromTop 1s ease-in ; 
+}
+
 
 @media print {
   .slide-in-right, .slide-in-left, .slide-in-bottom, .reveal-text, .reveal-text::after {
@@ -48,6 +53,9 @@
 @keyframes slideInFromLeft { 0% { transform: translateX(-100%); }}
 @-webkit-keyframes slideInFromBottom { 0% {transform: translateY(100%);}}
 @keyframes slideInFromBottom { 0% { transform: translateY(100%); }}
+@-webkit-keyframes slideInFromTop { 0% {transform: translateY(-100%);}}
+@keyframes slideInFromTop { 0% { transform: translateY(-100%); }}
+
 
 .reveal-text,
 .reveal-text::after {
