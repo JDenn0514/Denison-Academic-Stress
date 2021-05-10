@@ -110,9 +110,6 @@ m21 <- m21 %>% mutate(gender4= frcode(q54_1==1 ~ "Male",
                                       q54_3==1 ~ "Transgender",
                                       q54_4==1 ~ "Non-binary"))
 
-m21 <- m21 %>% mutate(gender= frcode(q54_1==1 ~ "Male",
-                                      q54_2==1 ~ "Female"))
-
 #Sexual orientation
 m21 <- m21 %>% mutate(sexo=frcode(q55==1 ~ "Heterosexual",
                                   q55==2 ~ "Homosexual",
@@ -256,25 +253,15 @@ m21 <- m21 %>% mutate(invtotf=as.factor(invtot))
 
 
 #Factoring the variables for activities during the day
-m21 <- m21 %>% mutate(study=q16_3,
-                      sleep=q16_5,
-                      eat=q16_1,
-                      attend=q16_2,
-                      exercise=q16_4,
-                      meet=q16_6,
-                      hang=q16_7,
-                      tv=q16_8,
-                      sm=q16_9)
-
-m21 <- m21 %>% mutate(studyf=as.factor(q16_3),
-                      sleepf=as.factor(q16_5),
-                      eatf=as.factor(q16_1),
-                      attendf=as.factor(q16_2),
-                      exercisef=as.factor(q16_4),
-                      meetf=as.factor(q16_6),
-                      hangf=as.factor(q16_7),
-                      tvf=as.factor(q16_8),
-                      smf=as.factor(q16_9))
+m21 <- m21 %>% mutate(study=as.factor(q16_3),
+                      sleep=as.factor(q16_5),
+                      eat=as.factor(q16_1),
+                      attend=as.factor(q16_2),
+                      exercise=as.factor(q16_4),
+                      meet=as.factor(q16_6),
+                      hang=as.factor(q16_7),
+                      tv=as.factor(q16_8),
+                      sm=as.factor(q16_9))
 
 
 #Grouping Stress Levels
@@ -387,6 +374,7 @@ m21_str %>%
   theme_hc() +
   theme(text=element_text(family="Jost", size=12),
         legend.position = "blank",
+        title = element_text(size=16)
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
@@ -403,222 +391,277 @@ m21_str %>%
 ```{r Causes for Academic stress}
 #Study and stress levels
 m21 %>% 
-  group_by(studyf) %>% 
-  filter(study!="NA") %>% filter(study<10) %>% 
+  group_by(study) %>% filter(q16_3!="NA") %>% 
   mean_ci(q21_1, ci=.76) %>% 
-  ggplot(., aes(x=studyf , y=mean, fill= studyf)) + 
-  geom_col(alpha=1, color="black", width = .75) + 
+  ggplot(., aes(x=study , y=mean, fill= study)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  scale_y_continuous(limits = c(0,10), 
-                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   labs(y="Number of Hours Doing Homework", x=NULL, 
        title="More Homework is Related to More Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
-  gbh_fill()
+  scale_fill_futurama()
 
 #Sleep and stress levels
 m21 %>% 
-  group_by(sleepf) %>% 
-  filter(sleep!="NA") %>% filter(sleep>4) %>%  
+  group_by(sleep) %>% filter(q16_5!="NA") %>% filter(q16_5>4) %>%  
   mean_ci(q21_1, ci=.76) %>% 
-  ggplot(., aes(x=sleepf , y=mean, fill= sleepf)) + 
-  geom_col(alpha=1, color="black", width = .75) + 
+  ggplot(., aes(x=sleep , y=mean, fill= sleep)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   labs(x="Number of Hours Doing Sleeping", y=NULL, 
        title="Seven Hours of Sleep Is The Perfect Amount To Reduce Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
-  gbh_fill()
+  scale_fill_futurama()
 
-
-#Exercise
+#Eating and stress levels
 m21 %>% 
-  group_by(exercisef) %>% 
-  filter(exercise!="NA") %>% filter(exercise<5) %>%
+  group_by(eat) %>% filter(q16_1!="NA") %>% filter(q16_1<6) %>%  
   mean_ci(q21_1, ci=.76) %>% 
-  ggplot(., aes(x=exercisef , y=mean, fill= exercisef)) + 
-  geom_col(alpha=1, color="black", width = .75) + 
+  ggplot(., aes(x=eat , y=mean, fill= eat)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Hours Eating", y=NULL, 
+       title="Eating",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+#Attending class
+m21 %>% 
+  group_by(attend) %>% filter(q16_2!="NA") %>% filter(q16_2<7) %>%
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=attend , y=mean, fill= attend)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Hours Going to Class", y=NULL, 
+       title="Attending classes",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+#Exercise
+m21 %>% 
+  group_by(exercise) %>% filter(q16_4!="NA") %>% filter(q16_4<5) %>%
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=exercise , y=mean, fill= exercise)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   labs(x="Number of Hours Doing Exercise", y=NULL, 
        title="One to Two Hours of Exercise Helps Alleviate Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
-  gbh_fill()
+  scale_fill_futurama()
 
-
-#Hanging out with Friends
+#Meetings
 m21 %>% 
-  group_by(hangf) %>% filter(hang!="NA") %>%  
+  group_by(meet) %>% filter(q16_6!="NA") %>% filter(q16_6<4) %>%
   mean_ci(q21_1, ci=.76) %>% 
-  ggplot(., aes(x=hangf, y=mean, fill= hangf)) + 
-  geom_col(alpha=1, color="black", width = .75) + 
+  ggplot(., aes(x=meet , y=mean, fill= meet)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Hours Going to Meetings", y=NULL, 
+       title="Meetings",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+#Hanging out with Friends
+m21 %>% 
+  group_by(hang) %>% filter(hang!="NA") %>%  
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=hang , y=mean, fill= hang)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   labs(x="Number of Hours With Friends", y=NULL, 
-       title="Friends Do Not Help You Destress",
+       title="Hanging out with Friends",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+#Watching TV/Video Games
+m21 %>% 
+  group_by(tv) %>% filter(tv!="NA") %>%  filter(q16_8<6) %>%
+  mean_ci(q21_1, ci=.76) %>% 
+  ggplot(., aes(x=tv , y=mean, fill= tv)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
+  scale_y_continuous(limits = c(0,10), 
+                     labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
+  labs(x="Number of Hours Watching TV", y=NULL, 
+       title="Watching TV/Video Games",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+
+
+```
+
+
+```{r Causes for overall stress}
+#Study and stress levels
+m21 %>% 
+  group_by(study) %>% filter(q16_3!="NA") %>% 
+  mean_ci(q20_2, ci=.76) %>% 
+  ggplot(., aes(x=study , y=mean, fill= study)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -10) +
+  labs(y="Number of Hours Doing Homework", x=NULL, 
+       title="Students Who Study Two Hours Per Day Are Least Stressed;\nStress Plateaus Around Five Hours Per Day",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
+
+m21_inv %>% 
+  group_by(t_inv) %>% filter(p_inv==1) %>% 
+  mean_ci(q20_2, ci=.76) %>% 
+  ggplot(., aes(x=reorder(t_inv,mean) , y=mean, fill= t_inv)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  coord_flip() +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -10) +
+  labs(y="Students' Stress Level", x=NULL, 
+       title="Students Involved in Social Justice and Advocacy Are Most Stressed",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
   gbh_fill()
 
 
-
-```
-
-```{r interact plot for study}
-
-
-lm_study_year <- glm(q21_1 ~ study*yearf+q45_1+eat+exercise+sm+tv+hang+meet+attend+sleep+pid8+race, 
-                   data = m21)
-
-interact_plot(lm_study_year, pred = study, modx = yearf, 
-              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
-              int.width=.76, interval = TRUE,
-              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
-              legend.main = "") +
-  theme_minimal() +
-  theme(text=element_text(family="Jost", size=12),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_line(size=.5, color="gray80"),
-        legend.position = "right",
-        plot.title = element_text(hjust = .5),
-        legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Studying", 
-       y="Stress Level",
-       title="The More Time Spent Studying the More People Are Stressed About\nAcademics...Except for Sophomores Who Are Not Affected At All")
-
-
-
-```
-
-```{r interact plot for sleep}
-
-lm_sleep_year <- glm(q21_1 ~ sleep*yearf+q45_1+eat+exercise+sm+tv+hang+meet+attend+study+pid8+race, 
-                   data = m21)
-
-interact_plot(lm_sleep_year, pred = sleep, modx = yearf, 
-              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
-              int.width=.76, interval = TRUE,
-              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
-              legend.main = "") +
-  theme_minimal() +
-  theme(text=element_text(family="Jost", size=12),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_line(size=.5, color="gray80"),
-        legend.position = "right",
-        plot.title = element_text(hjust = .5),
-        legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Sleeping", 
-       y="Stress Level",
-       title=NULL)+
-  scale_x_continuous(limits = c(5,10)) 
+m21 %>% 
+  group_by(polintf) %>% filter(polint!="NA") %>% 
+  mean_ci(q20_2, ci=.76) %>% 
+  ggplot(., aes(x=polintf, y=mean, fill= polintf)) + 
+  geom_col(alpha=.8, color="black", width = .75) + 
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
+  theme_hc() +
+  theme(text=element_text(family="O", size=12),
+        legend.position = "blank",
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=.5, color="gray80"),
+        axis.text.x = element_text(size=9),
+        plot.title = element_text(hjust = .5)) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -10) +
+  labs(y="Students Stress Level", x=NULL, 
+       title="Students More Interested in Politics Are More Stressed",
+       caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
+  scale_fill_futurama()
 
 
 ```
 
 
-```{r interact plot for hanging with friends}
-lm_hang_year <- glm(q21_1 ~ hang*yearf+q45_1+eat+exercise+sm+tv+study+meet+attend+sleep+pid8+race, 
-                   data = m21)
-
-interact_plot(lm_hang_year, pred = hang, modx = yearf, 
-              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
-              int.width=.76, interval = TRUE,
-              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
-              legend.main = "") +
-  theme_minimal() +
-  theme(text=element_text(family="Jost", size=12),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_line(size=.5, color="gray80"),
-        legend.position = "right",
-        plot.title = element_text(hjust = .5),
-        legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Hanging Out With", 
-       y="Stress Level",
-       title="Hanging Out With Friends Does Not Have Much of an Impact")
-
-```
 
 ```{r}
-lm_exercise_year <- glm(q21_1 ~ exercise*yearf+q45_1+eat+exercise+sm+tv+study+meet+attend+sleep+pid8+race, 
-                   data = m21)
+#Overall stress this semester
+m21 %>% mean_ci(q20_1, ci=0.84)
+#Overall stress last semester
+m21 %>% mean_ci(q20_2, ci=0.84)
 
-interact_plot(lm_exercise_year, pred = exercise, modx = yearf, 
-              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
-              int.width=.76, interval = TRUE,
-              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
-              legend.main = "") +
-  theme_minimal() +
-  theme(text=element_text(family="Jost", size=12),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_line(size=.5, color="gray80"),
-        legend.position = "right",
-        plot.title = element_text(hjust = .5),
-        legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Exercising", 
-       y="Stress Level",
-       title="Exercise Has Little Impact") +
-  scale_x_continuous(limits = c(0,4))
-
-```
-
-```{r}
-lm_pctread_year <- glm(q21_1 ~ q46_1*yearf+q45_1+eat+exercise+sm+tv+study+meet+attend+sleep+pid8+race, 
-                   data = m21)
-
-interact_plot(lm_pctread_year, pred = q46_1, modx = yearf, 
-              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
-              int.width=.76, interval = TRUE,
-              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
-              legend.main = "") +
-  theme_minimal() +
-  theme(text=element_text(family="Jost", size=12),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_line(size=.5, color="gray80"),
-        legend.position = "right",
-        plot.title = element_text(hjust = .5),
-        legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Hanging Out With", 
-       y="Stress Level",
-       title="The More Time Spent Studying the More People Are Stressed About\nAcademics...Except for Sophomores Who Are Not Affected At All")
+#Academics
+m21 %>% 
+  group_by(yearf) %>% 
+  mean_ci(q21_1)
+#Personal finances
+m21 %>% mean_ci(q21_2)
+#Family
+m21 %>% mean_ci(q21_3)
+#Mental Health
+m21 %>% mean_ci(q21_4)
+#Relationships with Friends
+m21 %>% mean_ci(q21_5)
+#Roommates
+m21 %>% mean_ci(q21_6)
+#Covid
+m21 %>% mean_ci(q21_7)
+#What am I eating next
+m21 %>% mean_ci(q21_8)
+#How much am I eating next
+m21 %>% mean_ci(q21_9)
 
 ```
-
-
-
 
 ```{r}
 #Academic Stress
@@ -629,19 +672,19 @@ m21_major %>%
   geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   labs(x=NULL, y=NULL, 
        title="Arts and Undecided Students Have the Least Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
-  gbh_fill()
+  scale_fill_futurama()
 
 
 m21_inv %>% 
@@ -652,19 +695,19 @@ m21_inv %>%
   geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   labs(x=NULL, y=NULL, 
        title="Arts and Undecided Students Have the Least Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
-  gbh_fill()
+  scale_fill_futurama()
 
 m21 %>% 
   group_by(invtotf) %>% filter(invtotf!="NA") %>% 
@@ -673,19 +716,20 @@ m21 %>%
   geom_col(alpha=.8, color="black", width = .75) + 
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.1) +
   theme_hc() +
-  theme(text=element_text(family="Jost", size=12),
+  theme(text=element_text(family="O", size=12),
         legend.position = "blank",
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size=.5, color="gray80"),
         axis.text.x = element_text(size=9),
         plot.title = element_text(hjust = .5)) +
-  geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
+  geom_text(aes(label = round(mean, digits=2)), family="O", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   labs(x="Number of Different Organization Types Involved In", y=NULL, 
        title="Involvement Level Does Not Affect Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
-  gbh_fill()
+  scale_fill_futurama()
+
 
 
 
