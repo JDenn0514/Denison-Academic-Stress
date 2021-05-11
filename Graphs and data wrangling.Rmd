@@ -517,7 +517,7 @@ interact_plot(lm_study_year, pred = study, modx = yearf,
         legend.title = element_text(hjust = .5)) +
   labs(x="Hours Spent Studying", 
        y="Stress Level",
-       title="The More Time Spent Studying the More People Are Stressed About\nAcademics...Except for Sophomores Who Are Not Affected At All")
+       title="The More Time Spent Studying the More People Are Stressed About\nAcademics... Except for Sophomores Who Are Not Affected At All")
 
 
 
@@ -546,28 +546,6 @@ interact_plot(lm_sleep_year, pred = sleep, modx = yearf,
   scale_x_continuous(limits = c(5,10)) 
 
 
-```
-
-
-```{r interact plot for hanging with friends}
-lm_hang_year <- glm(q21_1 ~ hang*yearf+q45_1+eat+exercise+sm+tv+study+meet+attend+sleep+pid8+race, 
-                   data = m21)
-
-interact_plot(lm_hang_year, pred = hang, modx = yearf, 
-              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
-              int.width=.76, interval = TRUE,
-              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
-              legend.main = "") +
-  theme_minimal() +
-  theme(text=element_text(family="Jost", size=12),
-        panel.grid.minor.y = element_blank(),
-        panel.grid.major.x = element_line(size=.5, color="gray80"),
-        legend.position = "right",
-        plot.title = element_text(hjust = .5),
-        legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Hanging Out With", 
-       y="Stress Level",
-       title="Hanging Out With Friends Does Not Have Much of an Impact")
 
 ```
 
@@ -593,6 +571,48 @@ interact_plot(lm_exercise_year, pred = exercise, modx = yearf,
   scale_x_continuous(limits = c(0,4))
 
 ```
+
+
+
+```{r interact plot for hanging with friends}
+lm_hang_year <- glm(q21_1 ~ hang*yearf+q45_1+eat+exercise+sm+tv+study+meet+attend+sleep+pid8+race, 
+                   data = m21)
+
+interact_plot(lm_hang_year, pred = hang, modx = yearf, 
+              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
+              int.width=.76, interval = TRUE,
+              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
+              legend.main = "") +
+  theme_minimal() +
+  theme(text=element_text(family="Jost", size=12),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_line(size=.5, color="gray80"),
+        legend.position = "right",
+        plot.title = element_text(hjust = .5),
+        legend.title = element_text(hjust = .5)) +
+  labs(x="Hours Spent Hanging Out With", 
+       y="Stress Level",
+       title="Hanging Out With Friends Does Not Have Much of an Impact...\nExcept With Sophomores")
+
+interact_plot(lm_hang_year, pred = hang, modx = yearf, 
+              modx.labels = c("Seniors", "Juniors", "Sophomores", "Freshmen"),
+              int.width=.76, interval = TRUE,
+              colors = c("#5B1A18", "#7294D4", "#ABDDDE", "#FD6467"),
+              legend.main = "") +
+  theme_minimal() +
+  theme(text=element_text(family="Jost", size=12),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_line(size=.5, color="gray80"),
+        legend.position = "right",
+        plot.title = element_text(hjust = .5),
+        legend.title = element_text(hjust = .5)) +
+  labs(x="Hours Spent Hanging Out With", 
+       y="Stress Level",
+       title="Hanging Out With Friends Does Not Have Much of an Impact...\nExcept With Sophomores")+
+  facet_wrap(~yearf)
+
+```
+
 
 ```{r}
 lm_pctread_year <- glm(q21_1 ~ q46_1*yearf+q45_1+eat+exercise+sm+tv+study+meet+attend+sleep+pid8+race, 
