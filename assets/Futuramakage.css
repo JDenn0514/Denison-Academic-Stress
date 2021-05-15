@@ -20,6 +20,7 @@
     --main-color8: #FF6348;
     --main-color9: #A9E184;
     --main-color10: #3F404F;
+    --main-color11: #84D7E1;
     --text-color1: white;
     --text-color2: white;
     --text-color3: white;
@@ -30,8 +31,9 @@
     --text-color8: white;
     --text-color9: black;
     --text-color10: white;
+    --text-color11: black;
     --text-opacity: white;
-    --link-color: #ecadec;
+    --link-color: #3F404F;
     --alert-color: #CF3C18;
     --text-alert: white;
     --code-background: rgba(052, 152, 204, 0.4);
@@ -92,6 +94,8 @@
 .bg-main8 { background-color: var(--main-color8); color: var(--text-color8);}
 .bg-main9 { background-color: var(--main-color9); color: var(--text-color9);}
 .bg-main10 { background-color: var(--main-color10); color: var(--text-color10);}
+.bg-main11 { background-color: var(--main-color11); color: var(--text-color11);}
+
 
 .bgcolor_alert { background-color: var(--alert-color)!important; color: var(--text-alert); }
 
@@ -104,6 +108,8 @@
 .color-main7 { color: var(--main-color7);}
 .color-main8 { color: var(--main-color8);}
 .color-main9 { color: var(--main-color9);}
+.color-main10 { color: var(--main-color10);}
+.color-main11 { color: var(--main-color11);}
 
 .color-alert { color: var(--alert-color);}
 

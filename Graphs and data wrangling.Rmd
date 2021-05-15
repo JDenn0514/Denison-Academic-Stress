@@ -517,8 +517,7 @@ interact_plot(lm_study_year, pred = study, modx = yearf,
         legend.title = element_text(hjust = .5)) +
   labs(x="Hours Spent Studying", 
        y="Stress Level",
-       title="The More Time Spent Studying the More People Are Stressed About\nAcademics... Except for Sophomores Who Are Not Affected At All")
-
+       title="The More Time Spent Studying the More People Are Stressed About\nAcademics... Except for Sophomores Who Are Not Affected At All") 
 
 
 ```
