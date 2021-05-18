@@ -374,18 +374,75 @@ class: split-30 with-thick-border hide-slide-number
 class: split-70 middle center bg-main6 hide-slide-number
 
 .column[.content[
+.split-90[
+.row[.content[
 #Lastly, how does studying affect stress? 
 <br>
-##I would expect that students who have more homework or studying are likely overwhelmed and thus have more stress. Moreover, students who spend more time studying likely put more importance on their academics and thus are more stressed about them.
-] ]
+###I would expect that students who have more homework or studying are likely overwhelmed and thus have more stress. Moreover, students who spend more time studying likely put more importance on their academics and thus are more stressed about them.
+]]
+
+.row[.content[
+(Despite the image, drinking while studying is not recommended and I do not encourage the behavior.)
+]]
+]
+]]
 
 .column[.content[
 .img-fill[![](images/study.jpg)]
 ]
 ]
 
+---
+
+class: split-70 with-thick-border hide-slide-number
+
+.column.bg-main5[.split-10.border-white[
+.row[.content.center[
+
+]]
+.row[.content.nopadding[
+.fig90[![](images/study.png)]
+]]
+]]
+
+.column.bg-main6[.content.vmiddle[
+.center[
+###Turns out that more studying does lead to more stress. This probably the least surprising result of this entire slide show. More studying likely leads to the feeling of being overwhelmed and in turn more stress.
+]
+]]
+
+---
+
+class: hide-slide-number middle center bg-main4 
+
+##Unfortunately other things that people do throughout the day (like sleeping, exercising, and hanging out with friends) might affect the results. Nevertheless, using an interaction plot we can take these factors into account. Moreover, we can see how other factors, like class year are affected differently.
+
+---
+
+class: split-60 with-thick-border hide-slide-number
+
+.column.bg-main5[.split-10.border-white[
+.row[.content.center[
+
+]]
+.row[.content.nopadding[
+.fig90[![](images/studint.png)]
+]]
+]]
 
 
+.column.bg-main6[.content.vmiddle[
+.center[
+####The graph to the left is an interaction plot that looks at how studying affects stress level for each class year. We can see that for freshmen, juniors, and seniors more studying leads to more stress which suggests that studying does affect and is not the result of covariation. For sophomores, there is no relationship whatsoever. It is unclear why this is the case but it is something that should be investigated more.
+]
+]]
 
+---
+
+class: hide-slide-number middle center bg-main4 
+
+###Throughout this presentation I sought to demonstrate some factors that contribute to academic stress. It turns out that the amount of time spent studying/doing homework, sleeping, and exercising all impact stress. Getting seven hours of sleep and exercising for one to two hours every day are two things that are easy to accomplish and will reduce  stress.  
+<br>
+###Moreover, less time spent studying decreases stress. So when you're stressed about an upcoming exam or a paper or project, remember you don't need to get 100% and it does not have to be perfect. Your mental health is more important than that extra little percentage you would get from all that extra time spent studying.
 
 
