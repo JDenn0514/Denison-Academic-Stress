@@ -505,6 +505,10 @@
 .split-60>.column:nth-of-type(2) {width: 40%; height:100%; position: absolute; top: 0; right: 0;}
 .split-70>.column:first-of-type {width: 70%; height:100%; position: absolute; top: 0; left: 0; }
 .split-70>.column:nth-of-type(2) {width: 30%; height:100%; position: absolute; top: 0; right: 0;}
+.split-80>.column:first-of-type {width: 80%; height:100%; position: absolute; top: 0; left: 0; }
+.split-80>.column:nth-of-type(2) {width: 20%; height:100%; position: absolute; top: 0; right: 0;}
+.split-90>.column:first-of-type {width: 90%; height:100%; position: absolute; top: 0; left: 0; }
+.split-90>.column:nth-of-type(2) {width: 10%; height:100%; position: absolute; top: 0; right: 0;}
 .split-two>.column:first-of-type {width: 50%; height:100%; position: absolute; top: 0; left: 0; }
 .split-two>.column:nth-of-type(2) {width: 50%; height:100%; position: absolute; top: 0; right: 0;}
 .split-three>.column:first-of-type {width: 33.33333333333%; height:100%; position: absolute; top: 0; left: 0; }
@@ -703,6 +707,10 @@
 .split-60>.row:nth-of-type(2) {height: 40%; width:100%; position: absolute; bottom: 0; left: 0;}
 .split-70>.row:first-of-type {height: 70%; width:100%; position: absolute; top: 0; left: 0; }
 .split-70>.row:nth-of-type(2) {height: 30%; width:100%; position: absolute; bottom: 0; left: 0;}
+.split-80>.row:first-of-type {height: 80%; width:100%; position: absolute; top: 0; left: 0; }
+.split-80>.row:nth-of-type(2) {height: 20%; width:100%; position: absolute; bottom: 0; left: 0;}
+.split-90>.row:first-of-type {height: 90%; width:100%; position: absolute; top: 0; left: 0; }
+.split-90>.row:nth-of-type(2) {height: 10%; width:100%; position: absolute; bottom: 0; left: 0;}
 .split-two>.row:first-of-type {height: 50%; width:100%; position: absolute; top: 0; left: 0; }
 .split-two>.row:nth-of-type(2) {height: 50%; width:100%; position: absolute; bottom: 0; left: 0;}
 .split-three>.row:first-of-type {height: 33.33333333333%; width:100%; position: absolute; top: 0; left: 0; }
