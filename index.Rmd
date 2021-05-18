@@ -355,7 +355,7 @@ class: split-30 with-thick-border hide-slide-number
 <br>
 ####Students who report 
 ####getting 1-2 hours of exercise  every day report the least amount of stress. However, once students start getting 3+ hours, stress spikes. This 
-####is likely driven by having too little time to finish assingments on time
+####is likely driven by having too little time to finish assignments on time
 ]
 ]]
 
@@ -371,6 +371,18 @@ class: split-30 with-thick-border hide-slide-number
 
 ---
 
+class: split-70 middle center bg-main6 hide-slide-number
+
+.column[.content[
+#Lastly, how does studying affect stress? 
+<br>
+##I would expect that students who have more homework or studying are likely overwhelmed and thus have more stress. Moreover, students who spend more time studying likely put more importance on their academics and thus are more stressed about them.
+] ]
+
+.column[.content[
+.img-fill[![](images/study.jpg)]
+]
+]
 
 
 
