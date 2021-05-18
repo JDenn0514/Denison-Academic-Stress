@@ -418,7 +418,7 @@ m21 %>%
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
   geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
-  labs(y="Number of Hours Doing Homework", x=NULL, 
+  labs(x="Number of Hours Doing Homework per 24 Hours", y="Stress Level\n(Scale Was 1-10)", 
        title="More Homework is Related to More Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
   gbh_fill()
@@ -441,7 +441,7 @@ m21 %>%
   geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
-  labs(x="Number of Hours Doing Sleeping", y=NULL, 
+  labs(x="Number of Hours Sleeping per 24 Hours", y="Stress Level\n(Scale Was 1-10)", 
        title="Seven Hours of Sleep Is The Perfect Amount To Reduce Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
   gbh_fill()
@@ -465,7 +465,7 @@ m21 %>%
   geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
-  labs(x="Number of Hours Doing Exercise", y=NULL, 
+  labs(x="Number of Hours Exercising per 24 Hours", y="Stress Level\n(Scale Was 1-10)", 
        title="One to Two Hours of Exercise Helps Alleviate Academic Stress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
   gbh_fill()
@@ -488,7 +488,7 @@ m21 %>%
   geom_text(aes(label = round(mean, digits=2)), family="Jost", nudge_y = -1) +
   scale_y_continuous(limits = c(0,10), 
                      labels = c("Not At All\nStressful", "2.5", "5", "7.5", "Very\nStressful")) +
-  labs(x="Number of Hours With Friends", y=NULL, 
+  labs(x="Number of Hours Hanging Out With Friends per 24 Hours", y="Stress Level\n(Scale Was 1-10)", 
        title="Friends Do Not Help You Destress",
        caption="Source: March 2021 Survey.\nNote: Confidence Intervals Are Equivalent to a 90% Test of Statistical Significance When Two Are Compared") +
   gbh_fill()
@@ -515,9 +515,10 @@ interact_plot(lm_study_year, pred = study, modx = yearf,
         legend.position = "right",
         plot.title = element_text(hjust = .5),
         legend.title = element_text(hjust = .5)) +
-  labs(x="Hours Spent Studying", 
-       y="Stress Level",
-       title="The More Time Spent Studying the More People Are Stressed About\nAcademics... Except for Sophomores Who Are Not Affected At All") 
+  labs(x="Hours Spent Doing Homework/Studying per 24 Hours", 
+       y="Stress Level\n(Scale Was 1-10)",
+       title="The More Time Spent Studying the More People Are Stressed About\nAcademics... Except for Sophomores Who Are Not Affected At All") +
+  facet_wrap(~yearf)
 
 
 ```

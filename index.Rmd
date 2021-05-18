@@ -281,37 +281,95 @@ class: split-70 with-thick-border hide-slide-number
 
 .column.bg-main8[.content.vmiddle[
 .center[
-###As we can see in the graph to the left, hanging out with friends does not have a relationship with academic stress. I believe that this is caused by a combination of all three factors mentioned in the previous slide.
+###As we can see in the graph to the right, hanging out with friends does not have a relationship with academic stress. I believe that this is caused by a combination of all three factors mentioned in the previous slide.
 ]
 ]]
 
 ---
 
-class: class: split-40 hide-slide-number with-thick-border
-.column.bg-main8[.content.center.vmiddle[
-###How about time spent exercising each day? Well it has been proven that exercising helps alleviate [mental stress](https://www.health.harvard.edu/staying-healthy/exercising-to-relax)
+class: split-40 middle center bg-main9 hide-slide-number
 
-]]
-.column.bg-main8[.content.center[
-.split-three[
-.row[.content.center[
+.column[.content[
+.img-fill[![](images/sleep.jpg)]
+]
+]
+
+.column[.content[
+#How about sleep?
 <br>
-###1. Well it has been proven that exercising helps alleviate stress
-]]
+##Based on the [interconnected relationship](https://www.sleep.org/sleep-and-stress/) between sleep and stress, I would expect students who get appropriate levels of sleep would have the least amount of stress.
 
-.row[.content.center[
+]
+]
+
+---
+
+class: split-30 with-thick-border hide-slide-number
+
+
+.column.bg-main9[.content.vmiddle[
+.center[
+###Long story short, if you want less stress, get seven hours of sleep.
 <br>
-###2. Students may spend time with friends to destress from academics 
-###and everything else going on. This would lead to less stress
+I believe that part of this is because it finds the perfect balance of enough sleep and time to do stuff. Part of the reason students who get 5-6 hours of sleep are more stressed is because they are getting so little sleep but also because they probably have a lot of homework that is taking away from sleep. As for students who get 8-10 hours it is possible that this is too much sleep and they do not have enough time to get their work done along with everything else they want to do. 
+]
 ]]
 
+
+.column.bg-main5[.split-10.border-white[
 .row[.content.center[
-<br>
-###3. Students may hangout with friends while studying, eating, or doing something else. This would lead to time spent with friends having no effect on academic stress
+
 ]]
-]]]
+.row[.content.nopadding[
+.fig90[![](images/sleep.png)]
+]]
+]]
 
 
+---
+
+class: split-40 middle center bg-main7 hide-slide-number
+
+.column[.content[
+.img-fill[![](images/exercise.jpg)]
+]
+]
+
+.column[.content[
+#What about exercise? 
+<br>
+##Well, given the fact that it has been proven that exercising helps alleviate [mental stress](https://www.health.harvard.edu/staying-healthy/exercising-to-relax), I would expect students who report getting some exercise in would have the lowest levels of academic stress.
+
+]
+]
+
+---
+
+class: split-30 with-thick-border hide-slide-number
+
+
+.column.bg-main7[.content.vmiddle[
+.center[
+###Looking at the graph to the right, 
+###we can see that exercising does in fact decrease stress. 
+<br>
+####Students who report 
+####getting 1-2 hours of exercise  every day report the least amount of stress. However, once students start getting 3+ hours, stress spikes. This 
+####is likely driven by having too little time to finish assingments on time
+]
+]]
+
+
+.column.bg-main5[.split-10.border-white[
+.row[.content.center[
+
+]]
+.row[.content.nopadding[
+.fig90[![](images/exercise.png)]
+]]
+]]
+
+---
 
 
 
